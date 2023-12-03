@@ -21,3 +21,59 @@ This repo demonstrates a simple way to integrate Next JS (App Router) with X. He
 4. Copy the content in `app/api/auth/[...nextauth]/route.ts` to your project.
 5. Add `SessionProvider` on the root-level `template.tsx`. See the example on the `app/template.tsx` file.
 6. Use `TwitterLogin` on your project. See the example of usage in the `app/page.tsx` and `components/TwitterLogin.tsx` files.
+
+## Create tweets using API
+1. We'll be using `twitter-api-v2` for interacting with X API. So, install it first `npm i -s twitter-api-v2`.
+2. Grant the `tweet.write` scope to the app. See `/app/auth/[...nextauth]/route.ts`.
+```ts
+providers: [
+    TwitterProvider({
+      //...
+      authorization: {
+        //...
+        params: {
+          scope: "tweet.read tweet.write users.read offline.access", // Define your scopes here
+        },
+      },
+    }),
+    // ... other providers
+  ],
+```
+3. Since the `twitter-api-v2` doesn't support frontend application, we'll need to use it in the backend. See an example implementation of a handler route in the `app/x/post/route.ts` file.
+4. See how to create a post from frontend in the `components/TwitterPost.tsx` file.
+
+## Handling missing types in a module
+A type compilation problem will occur when we add this part to `app/api/auth/[...nextauth]/route.ts` file:
+```ts
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token // Property 'accessToken' does not exist on type 'JWT'.
+      }
+      return token
+    },
+    async session({ session, token }) {
+      session.accessToken = token.accessToken // Property 'accessToken' does not exist on type 'Session'.
+      return session
+    }
+  }
+```
+To address the problem, we'll need to create type declaration. See examples in `types/next-auth.d.ts`.
+In there, we do the following steps:
+1. Import the module that we want to extend. In this case: `import 'next-auth'`;
+2. Declare module to extend properties in some interfaces.
+```ts
+    declare module 'next-auth/jwt' { // 'next-auth/jwt' is used because JWT is imported in that path
+        /** Extending the built-in JWT types to include custom properties */
+        interface JWT {
+            accessToken?: string; // Extend the 'accessToken' property in the JWT interface
+        }
+    }
+
+```
+
+## Notes
+This repo is not a perfect example of how to integrate with X API. I found that the app disconnects from X after a post is created. This can happen because the X API OAuth V2 and NextAuth integration is still in beta verion. Otherwise, my implementation is not correct. If you find some way to resolve it and create a PR to this repo, it will be much appreciated :D.
+
+## Author
+Sainy, CTO at Finstable Co., Ltd.
