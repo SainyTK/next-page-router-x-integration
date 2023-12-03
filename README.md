@@ -4,6 +4,10 @@ This repo demonstrates a simple way to integrate Next JS (App Router) with X. He
 2. Personal profile fetching (username and image)
 3. Create a post
 
+## Dependencies
+1. NextAuth - https://next-auth.js.org/providers/twitter
+2. TwitterAPIV2 - https://www.npmjs.com/package/twitter-api-v2
+
 ## X developer portal setup
 1. Login to X.
 2. Head to https://developer.twitter.com/en/portal/dashboard. You can refer to this video for initial X developer account setup: https://www.youtube.com/watch?v=Ns9xH-5v3Po.
