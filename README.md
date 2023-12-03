@@ -78,7 +78,7 @@ In there, we do the following steps:
 ```
 
 ## Notes
-This repo is not a perfect example of how to integrate with X API. I found that the app disconnects from X after a post is created. This can happen because the X API OAuth V2 and NextAuth integration is still in beta verion. Otherwise, my implementation is not correct. If you find some way to resolve it and create a PR to this repo, it will be much appreciated :D.
+This repo is not a perfect example of how to integrate with X API. I found that the app disconnects from X after a post is created. This can happen because the X API OAuth V2 and NextAuth integration are still in the beta version. Otherwise, my implementation is not correct. If you find some way to resolve it and create a PR to this repo, it will be much appreciated :D.
 
 ## Author
 Sainy, CTO at Finstable Co., Ltd.
