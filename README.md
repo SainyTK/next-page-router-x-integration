@@ -1,7 +1,8 @@
 # Next JS (App Router) + X Integration
 This repo demonstrates a simple way to integrate Next JS (App Router) with X. Here're the list of integrations:
 1. Authentication with OAuth2
-2. User profile fetching (username, image, follow count)
+2. Personal profile fetching (username and image)
+3. Create a post
 
 ## X developer portal setup
 1. Login to X.
